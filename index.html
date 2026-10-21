@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="NPLEY × 인천신용보증재단 홈페이지 개편 분석 및 제안">
 <meta property="og:title" content="2026 인천신용보증재단 홈페이지 개편 분석 및 제안">
-<meta property="og:image" content="assets/s01.png">
+<meta property="og:image" content="assets/s01.webp">
 <title>인천신용보증재단 개편 제안</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,6 +56,18 @@ button svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8
 .thumb span em{font-style:normal;font-family:var(--mono);color:var(--fg)}
 .hint{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
 kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--fg)}
+.hot{position:absolute;display:block;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent;outline:none;border-radius:14px;transition:box-shadow .15s}
+.hot:hover,.hot:focus-visible{box-shadow:0 0 0 1.5px var(--accent)}
+.hot .hotmark{position:absolute;right:13px;bottom:12px;width:18px;height:18px;display:grid;place-items:center;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.55));transition:transform .15s}
+.hot .hotmark svg{width:18px;height:18px;stroke:var(--accent);stroke-width:2;fill:none;display:block}
+.hot.sm .hotmark{right:11px;bottom:11px;width:15px;height:15px}
+.hot.sm .hotmark svg{width:15px;height:15px}
+.hot:hover .hotmark,.hot:focus-visible .hotmark{transform:scale(1.1)}
+.hot .hottip{position:absolute;left:50%;top:40%;transform:translate(-50%,-5px);max-width:90%;white-space:nowrap;padding:7px 13px;
+  border-radius:9px;background:rgba(20,20,22,.96);color:#F2F5FA;font-size:12.5px;font-weight:500;letter-spacing:.01em;
+  box-shadow:0 8px 26px rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .16s,transform .16s;pointer-events:none}
+.hot:hover .hottip,.hot:focus-visible .hottip{opacity:1;visibility:visible;transform:translate(-50%,0)}
 @media (max-width:640px){.track,.hint-k{display:none}.name{font-size:13px}}
 </style>
 </head>
@@ -88,7 +100,7 @@ kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-r
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
 /* x:[x0,x1] title-block columns · rows:[y0,y1] bands (ghost word / eyebrow / headline lines) · desc:[x0,y0,x1,y1] side copy · all in 1280×720 space */
-const SLIDES=[{"c":"표지","t":"인천신용보증재단 홈페이지 개편 분석 및 제안","img":"assets/s01.png","base":"assets/b01.png","x":[40,1240],"rows":[[0,88],[88,116],[116,228],[228,345]],"desc":[]},{"c":"회사 소개","t":"NPLEY Way","img":"assets/s02.png","base":"assets/b02.png","x":[40,705],"rows":[[25,70],[70,100],[100,153],[153,205],[205,262]],"desc":[[830,205,1222,278]]},{"c":"회사 소개","t":"왜 엔플레이인가","img":"assets/s03.png","base":"assets/b03.png","x":[40,965],"rows":[[35,132],[132,165],[165,232],[232,298]],"desc":[]},{"c":"회사 소개","t":"금융 레퍼런스","img":"assets/s04.png","base":"assets/b04.png","x":[50,990],"rows":[[20,118],[118,146],[146,215]],"desc":[]},{"c":"제안 목표","t":"프로젝트 이해","img":"assets/s05.png","base":"assets/b05.png","x":[40,470],"rows":[[35,148],[148,176],[176,228],[228,280],[280,328]],"desc":[[60,348,455,452]]},{"c":"제안 목표","t":"공공·금융 웹 디자인 컨설팅","img":"assets/s06.png","base":"assets/b06.png","x":[40,640],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[690,181,1222,263]]},{"c":"현행 진단","t":"메뉴 구조","img":"assets/s07.png","base":"assets/b07.png","x":[40,535],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[936,181,1222,263]]},{"c":"현행 진단","t":"메인 화면","img":"assets/s08.png","base":"assets/b08.png","x":[40,580],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[947,181,1222,263]]},{"c":"현행 진단","t":"이용자 여정","img":"assets/s09.png","base":"assets/b09.png","x":[40,690],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[921,181,1222,263]]},{"c":"현행 진단","t":"핵심 과제","img":"assets/s10.png","base":"assets/b10.png","x":[40,585],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[]},{"c":"개선 방향","t":"개편 전략","img":"assets/s11.png","base":"assets/b11.png","x":[40,705],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[1009,181,1222,263]]},{"c":"개선 방향","t":"메인 화면 방향 3안","img":"assets/s12.png","base":"assets/b12.png","x":[40,845],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[929,181,1222,263]]},{"c":"수행 방안","t":"개편 범위별 제안","img":"assets/s13.png","base":"assets/b13.png","x":[40,590],"rows":[[30,146],[146,176],[176,235]],"desc":[]},{"c":"수행 방안","t":"범위·견적 비교","img":"assets/s14.png","base":"assets/b14.png","x":[40,520],"rows":[[30,146],[146,176],[176,235]],"desc":[]},{"c":"추진 일정","t":"일정(안)","img":"assets/s15.png","base":"assets/b15.png","x":[40,725],"rows":[[30,146],[146,176],[176,235]],"desc":[]},{"c":"회신","t":"Contact","img":"assets/s16.png","base":"assets/b16.png","x":[70,1210],"rows":[[240,415]],"desc":[]}];
+const SLIDES=[{"c":"표지","t":"인천신용보증재단 홈페이지 개편 분석 및 제안","img":"assets/s01.webp","base":"assets/b01.webp","x":[40,1240],"rows":[[0,88],[88,116],[116,228],[228,345]],"desc":[]},{"c":"회사 소개","t":"NPLEY Way","img":"assets/s02.webp","base":"assets/b02.webp","x":[40,705],"rows":[[25,70],[70,100],[100,153],[153,205],[205,262]],"desc":[[830,205,1222,278]]},{"c":"회사 소개","t":"왜 엔플레이인가","img":"assets/s03.webp","base":"assets/b03.webp","x":[40,965],"rows":[[35,132],[132,165],[165,232],[232,298]],"desc":[]},{"c":"회사 소개","t":"금융 레퍼런스","img":"assets/s04.webp","base":"assets/b04.webp","x":[50,990],"rows":[[20,118],[118,146],[146,215]],"desc":[]},{"c":"제안 목표","t":"프로젝트 이해","img":"assets/s05.webp","base":"assets/b05.webp","x":[40,470],"rows":[[35,148],[148,176],[176,228],[228,280],[280,328]],"desc":[[60,348,455,452]]},{"c":"제안 목표","t":"공공·금융 웹 디자인 컨설팅","img":"assets/s06.webp","base":"assets/b06.webp","x":[40,640],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[690,181,1222,263]]},{"c":"현행 진단","t":"메뉴 구조","img":"assets/s07.webp","base":"assets/b07.webp","x":[40,535],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[936,181,1222,263]]},{"c":"현행 진단","t":"메인 화면","img":"assets/s08.webp","base":"assets/b08.webp","x":[40,580],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[947,181,1222,263]]},{"c":"현행 진단","t":"이용자 여정","img":"assets/s09.webp","base":"assets/b09.webp","x":[40,690],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[921,181,1222,263]]},{"c":"현행 진단","t":"핵심 과제","img":"assets/s10.webp","base":"assets/b10.webp","x":[40,585],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[]},{"c":"개선 방향","t":"개편 전략","img":"assets/s11.webp","base":"assets/b11.webp","x":[40,705],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[1009,181,1222,263]]},{"c":"개선 방향","t":"메인 화면 방향 3안","img":"assets/s12.webp","base":"assets/b12.webp","x":[40,845],"rows":[[30,146],[146,176],[176,227],[227,285]],"desc":[[929,181,1222,263]]},{"c":"수행 방안","t":"개편 범위별 제안","img":"assets/s13.webp","base":"assets/b13.webp","x":[40,590],"rows":[[30,146],[146,176],[176,235]],"desc":[]},{"c":"수행 방안","t":"범위·견적 비교","img":"assets/s14.webp","base":"assets/b14.webp","x":[40,520],"rows":[[30,146],[146,176],[176,235]],"desc":[]},{"c":"추진 일정","t":"일정(안)","img":"assets/s15.webp","base":"assets/b15.webp","x":[40,725],"rows":[[30,146],[146,176],[176,235]],"desc":[]},{"c":"회신","t":"Contact","img":"assets/s16.webp","base":"assets/b16.webp","x":[70,1210],"rows":[[240,415]],"desc":[]}];
 const W=1280,H=720,$=id=>document.getElementById(id),pad=n=>String(n).padStart(2,'0');
 const stage=$('stage');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -120,6 +132,28 @@ const S=SLIDES.map((s,i)=>{
     const inn=crop(s.img,a,b,c,d);l.appendChild(inn);sec.appendChild(l);desc.push(inn);
   });
   stage.appendChild(sec);return {sec,base,ghost,eye,title,desc};
+});
+
+/* 장표별 클릭 링크(핫스팟) — 이미지 위에 투명 <a> 오버레이. 좌표는 1280x720 기준 [x0,y0,x1,y1] */
+const LINKS={
+  3:[ // s04 · 금융 레퍼런스
+    {href:'http://www.ktcu.or.kr',                    label:'THE-K 한국교직원공제회 · 사이트 바로가기',     r:[62,262,642,682]},
+    {href:'https://www.npley.com/exp/np-e008',        label:'삼성증권 주식굴링 · 홈페이지에서 자세히 보기', r:[658,262,1218,394], sm:true},
+    {href:'https://www.npley.com/exp/np-e012',        label:'삼성증권 로보굴링 · 홈페이지에서 자세히 보기', r:[658,406,1218,538], sm:true},
+    {href:'https://hp-dev.aiapremierpartners.co.kr/', label:'AIA 프리미어파트너스 · 사이트 바로가기',       r:[658,550,1218,682], sm:true},
+  ]
+};
+const CHAIN='<svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+Object.entries(LINKS).forEach(([i,arr])=>{
+  const sec=S[i]&&S[i].sec; if(!sec)return;
+  arr.forEach(({href,label,r,sm})=>{
+    const a=document.createElement('a');
+    a.href=href;a.target='_blank';a.rel='noopener noreferrer';a.className='hot'+(sm?' sm':'');
+    place(a,r[0],r[1],r[2],r[3]);
+    a.innerHTML='<span class="hotmark">'+CHAIN+'</span>'+(label?'<span class="hottip">'+label+'</span>':'');
+    a.addEventListener('click',e=>e.stopPropagation());
+    sec.appendChild(a);
+  });
 });
 
 let idx=-1,tl=null;
